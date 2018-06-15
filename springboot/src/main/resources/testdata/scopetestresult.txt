@@ -1,0 +1,33 @@
+第一次
+----------start-----------------------
+SingletonBean in ScopeTestController is : SingletonBean@51f18e31
+PrototypeBean in ScopeTestController is : PrototypeBean@5dc8ad40
+RequestScopeBean in ScopeTestController is : RequestScopeBean@33d4a13
+SessionScopeBean in ScopeTestController is : SessionScopeBean@4d85af88
+PrototypeBean in PrototypeScopeService is : PrototypeBean@6b3461a4
+RequestScopeBean in RequestScopeService is : RequestScopeBean@33d4a13
+SessionScopeBean in SessionScopeService is : SessionScopeBean@4d85af88
+SingletonBean in SingletonScopeService is : SingletonBean@51f18e31
+----------end-----------------------
+第二次
+----------start-----------------------
+SingletonBean in ScopeTestController is : SingletonBean@51f18e31
+PrototypeBean in ScopeTestController is : PrototypeBean@5dc8ad40
+RequestScopeBean in ScopeTestController is : RequestScopeBean@2230c233
+SessionScopeBean in ScopeTestController is : SessionScopeBean@67324811
+PrototypeBean in PrototypeScopeService is : PrototypeBean@6b3461a4
+RequestScopeBean in RequestScopeService is : RequestScopeBean@2230c233
+SessionScopeBean in SessionScopeService is : SessionScopeBean@67324811
+SingletonBean in SingletonScopeService is : SingletonBean@51f18e31
+----------end-----------------------
+第三次
+----------start-----------------------
+SingletonBean in ScopeTestController is : SingletonBean@51f18e31
+PrototypeBean in ScopeTestController is : PrototypeBean@5dc8ad40
+RequestScopeBean in ScopeTestController is : RequestScopeBean@376e2c65
+SessionScopeBean in ScopeTestController is : SessionScopeBean@39a9d4f8
+PrototypeBean in PrototypeScopeService is : PrototypeBean@6b3461a4
+RequestScopeBean in RequestScopeService is : RequestScopeBean@376e2c65
+SessionScopeBean in SessionScopeService is : SessionScopeBean@39a9d4f8
+SingletonBean in SingletonScopeService is : SingletonBean@51f18e31
+----------end-----------------------

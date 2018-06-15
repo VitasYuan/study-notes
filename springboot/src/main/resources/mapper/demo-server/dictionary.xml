@@ -1,0 +1,32 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.business.dictionary.dao.DictionaryDao">
+
+    <resultMap id="DictionaryResultMap" type="com.example.business.dictionary.Dictionary">
+        <result property="id" column="id"></result>
+        <result property="dictKey" column="dict_key"></result>
+        <result property="dictValue" column="dict_value"></result>
+        <result property="parentId" column="parent_id"></result>
+        <result property="description" column="description"></result>
+    </resultMap>
+
+    <select id="list" resultMap="DictionaryResultMap">
+        SELECT * FROM `dictionary`
+    </select>
+
+    <select id="listChildrenByKey" resultMap="DictionaryResultMap">
+        SELECT * FROM dictionary where parent_id= (select id from dictionary where dict_key= #{key})
+    </select>
+
+    <select id="getId" resultType="int">
+        SELECT `id` FROM dictionary where `dict_key`="testnull"
+    </select>
+
+    <delete id="delete" parameterType="int">
+        delete from dictionary where id = #{id}
+    </delete>
+
+    <insert id="insert" parameterType="com.example.business.dictionary.Dictionary">
+        INSERT INTO `dictionary`(`dict_key`,`dict_value`,`parent_id`,`description`)
+        VALUES(#{dictKey}, #{dictValue}, #{parentId}, #{description})
+    </insert>
+</mapper>
