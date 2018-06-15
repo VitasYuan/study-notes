@@ -6,7 +6,12 @@
 
     <groupId>com.zjut</groupId>
     <artifactId>study-notes</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>spring</module>
+        <module>netty</module>
+    </modules>
 
 
 </project>
