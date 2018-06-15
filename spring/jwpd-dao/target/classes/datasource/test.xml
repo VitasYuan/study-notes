@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="jwpdTestDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close">
+        <property name="driverClass" value="${jwpd.jdbc.c3p0.driverClass}"/>
+        <property name="jdbcUrl" value="${jwpd.jdbc.c3p0.jdbcUrl}"/>
+        <property name="user" value="${jwpd.jdbc.c3p0.user}"/>
+        <property name="password" value="${jwpd.jdbc.c3p0.password}"/>
+        <property name="initialPoolSize" value="${jwpd.jdbc.c3p0.initialPoolSize}"/>
+        <property name="minPoolSize" value="${jwpd.jdbc.c3p0.minPoolSize}"/>
+        <property name="maxPoolSize" value="${jwpd.jdbc.c3p0.maxPoolSize}"/>
+        <property name="idleConnectionTestPeriod" value="${jwpd.jdbc.c3p0.idleConnectionTestPeriod}"/>
+    </bean>
+
+    <!-- 配置mybatis -->
+    <bean id="testSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="jwpdTestDataSource" />
+        <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"></property>
+        <!-- mapper扫描 -->
+        <property name="mapperLocations" value="classpath:sqlmapper/*.xml"></property>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.zjut.dao" />
+        <property name="sqlSessionFactoryBeanName" value="testSqlSessionFactory" />
+    </bean>
+
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="testSqlSessionFactory" />
+    </bean>
+</beans>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+    <!-- 启用注解 -->
+    <context:annotation-config />
+
+    <context:component-scan base-package="com.zjut.task">
+    </context:component-scan>
+
+    <import resource="classpath*:spring-service.xml"></import>
+
+    <bean id = "taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value = "5"></property>
+        <property name = "maxPoolSize" value="10"></property>
+        <property name="queueCapacity" value="25"></property>
+    </bean>
+
+
+</beans>

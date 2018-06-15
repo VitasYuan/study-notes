@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjut.dao.statistic.HourAverageValueDao">
+
+    <resultMap id="AverageValueResultMap" type="com.zjut.model.AverageValue">
+        <id property="averageVaule" column="avg_value"></id>
+        <id property="createdTime" column="created_time"></id>
+    </resultMap>
+
+    <select id="get" parameterType="java.util.Map" resultMap="AverageValueResultMap">
+        <![CDATA[
+          SELECT * FROM hour_avg_value WHERE created_time < #{endTime} AND created_time >= #{startTime}
+        ]]>
+    </select>
+
+    <insert id="insert" parameterType="com.zjut.model.AverageValue">
+
+        INSERT INTO hour_avg_value(avg_value, created_time) VALUES (#{averageVaule}, #{createdTime})
+
+    </insert>
+
+</mapper>
