@@ -22,8 +22,9 @@ public class AsyncTaskTest {
 
     @Test
     public void asyncTest(){
-        asyncTaskService.asyncTask1();
-        asyncTaskService.asyncTask2();
+//        asyncTaskService.asyncTask1();
+//        asyncTaskService.asyncTask2();
+        asyncTaskService.test();
         System.out.println("asyncTest finished.");
 
     }

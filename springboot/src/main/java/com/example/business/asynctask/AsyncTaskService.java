@@ -26,21 +26,21 @@ public class AsyncTaskService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger("ASYNC_TASK_LOG");
 
-    @Async(value = "asyncTaskThreadPool")
+//    @Async(value = "asyncTaskThreadPool")//可以用于type，标识此类中所有方法都为异步方法,方法中可指定线程池名称覆盖
     public void asyncTask1() {
         LOGGER.info("AsyncTask1 start.");
         LOGGER.info(Thread.currentThread().getName());
         LOGGER.info("AsyncTask1 finished.");
     }
 
-    @Async(value = "asyncTaskThreadPool")
+//    @Async(value = "asyncTaskThreadPool")
     public void asyncTask2() {
         LOGGER.info("AsyncTask2 start.");
         LOGGER.info(Thread.currentThread().getName());
         LOGGER.info("AsyncTask2 finished.");
     }
 
-    @Async(value = "asyncTaskThreadPool")
+//    @Async(value = "asyncTaskThreadPool")
     public Future<String> asyncTaskWithResult() {
         LOGGER.info("AsyncTaskWithResult start.");
         try {
@@ -51,5 +51,11 @@ public class AsyncTaskService {
         LOGGER.info("AsyncTaskWithResult finished.");
 
         return new AsyncResult<>("success");
+    }
+
+    @Async
+    public String test(){
+        System.out.println(Thread.currentThread().getName());
+        return "tewt";
     }
 }
