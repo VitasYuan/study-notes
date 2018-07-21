@@ -7,6 +7,7 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketAddress;
+import java.util.concurrent.*;
 
 /**
  * @author yuanweipeng
@@ -18,12 +19,16 @@ public class TimeServer implements BaseServer {
 
     private volatile boolean isStop = false;
 
+
+    private ScheduledExecutorService executorService = Executors.newScheduledThreadPool(10);
+
+
     @Override
     public void server(String host, int port) throws Exception{
         ServerSocket serverSocket = null;
         int threadIndex = 1;
         long startTime = System.currentTimeMillis();
-
+        executorService.schedule()
         try {
             //TODO backlog test
             serverSocket = new ServerSocket();
@@ -34,7 +39,8 @@ public class TimeServer implements BaseServer {
             while (!isStop) {
 
                 Socket socket = serverSocket.accept();
-                new SocketHandler(socket, THREAD_NAME_PREFIX + threadIndex++).start();
+
+                executorService.execute(new SocketHandler(socket, THREAD_NAME_PREFIX + threadIndex++));
             }
         } finally {
             System.out.println("服务关闭.accept 时间：" + (System.currentTimeMillis() - startTime));

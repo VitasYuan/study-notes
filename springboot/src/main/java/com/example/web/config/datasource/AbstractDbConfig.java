@@ -1,5 +1,7 @@
 package com.example.web.config.datasource;
 
+import com.alibaba.druid.filter.Filter;
+import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -8,6 +10,8 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author yuanweipeng
@@ -30,8 +34,35 @@ public abstract class AbstractDbConfig {
         datasource.setUrl(url);
         datasource.setUsername(userName);
         datasource.setPassword(password);
-        datasource.setMaxActive(20);
-        datasource.setInitialSize(20);
+//        try {
+//            datasource.setFilters("log4j");
+//        } catch (Exception e) {
+//
+//        }
+        datasource.setProxyFilters(getFilters());
+        datasource.setMaxActive(10);
+        datasource.setInitialSize(10);
+        datasource.setMaxWait(60000);
+        datasource.setMinIdle(1);
+        datasource.setTimeBetweenEvictionRunsMillis(60000);
+        datasource.setMinEvictableIdleTimeMillis(300000);
+        datasource.setTestWhileIdle(true);
+        datasource.setTestOnBorrow(false);
+        datasource.setTestOnReturn(false);
+        datasource.setPoolPreparedStatements(true);
+        datasource.setMaxOpenPreparedStatements(10);
+        datasource.setUseGlobalDataSourceStat(true);
         return datasource;
+    }
+
+    protected List<Filter> getFilters(){
+        List<Filter> filters = new ArrayList<>(1);
+
+        StatFilter filter= new StatFilter();
+        filter.setLogSlowSql(true);
+        filter.setSlowSqlMillis(10000);
+        filter.setMergeSql(true);
+        filters.add(filter);
+        return filters;
     }
 }

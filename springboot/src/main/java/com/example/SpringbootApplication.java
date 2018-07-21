@@ -3,6 +3,7 @@ package com.example;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @SpringBootApplication
 @ComponentScan(basePackages = "com.example")
+@ServletComponentScan(basePackages = {"com.example.web.config"})
 public class SpringbootApplication {
 
 	public static void main(String[] args) {
