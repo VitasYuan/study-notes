@@ -14,6 +14,7 @@
         <module>springboot</module>
         <module>juc</module>
         <module>guava</module>
+        <module>design-pattern</module>
     </modules>
 
     <parent>
