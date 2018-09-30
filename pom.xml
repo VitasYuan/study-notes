@@ -15,6 +15,7 @@
         <module>juc</module>
         <module>guava</module>
         <module>design-pattern</module>
+        <module>json-tool</module>
     </modules>
 
     <parent>
