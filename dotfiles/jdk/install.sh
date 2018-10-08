@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # 安装jdk8
 if test ! $(which java)
 then

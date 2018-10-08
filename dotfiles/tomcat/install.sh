@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 wget https://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-7/v7.0.91/bin/apache-tomcat-7.0.91.tar.gz
 
 tar zxf apache-tomcat-7.0.91.tar.gz -C /root/yuanweipeng

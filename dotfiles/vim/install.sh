@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # 安装vim，并添加默认配置
 # 检测vim是否已经安装
 if test ! $(rpm -qa | grep vim-enhanced)
@@ -20,7 +21,7 @@ then
 		fi
 
 		cp .vimrc ~/.vimrc
-		echo "install and config success.
+		echo "install and config success."
 	fi
 else
 	echo "you have installed vim"
