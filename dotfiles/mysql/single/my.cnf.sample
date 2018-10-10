@@ -1,0 +1,386 @@
+[mysqld]
+
+#*********************通用配置*********************#
+server_id = 1
+#本台服务器唯一标识，用于复制环境。
+user=mysql
+#软件运行的用户环境
+default_storage_engine=InnoDB
+#默认普通表存储引擎
+character_set_server=utf8
+#服务器默认的字符编码时UTF-8
+collation_server = utf8_general_ci
+#服务器默认的字符对比方法是utf8_general_ci
+lower_case_table_names=1
+#忽略表名的大小写。
+group_concat_max_len = 2000000
+#group_concat函数输出的最长字符数
+transaction-isolation = READ-COMMITTED
+#隔离级别READ-UNCOMMITTED,READ-COMMITTED, REPEATABLE-READ, or SERIALIZABLE
+sql_mode = STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION,NO_AUTO_CREATE_USER
+#sql约束模式
+# 参考：
+#        STRICT_ALL_TABLES   对所有存储引擎使用严格模式
+#        STRICT_TRANS_TABLES 只对支持事务的存储引擎使用严格模式
+#        NO_ZERO_IN_DATE     在严格模式下不允许日期和月份为零
+#        NO_ZERO_DATE        在严格模式下不允许插入形如"0000-00-00 00:00:00"的非法日期
+#        ERROR_FOR_DIVISION_BY_ZERO  INSERT或者UPDATE过程中，如果数据被零除，则报错
+#        NO_AUTO_CREATE_USER  禁止GRANT创建密码为空的用户
+#        NO_ENGINE_SUBSTITUTION 如果需要的存储引擎被禁用或者未编译，抛出错误
+#        TRADITIONAL         等同于STRICT_ALL_TABLES,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION的组合
+symbolic-links=0
+# Disabling symbolic-links is recommended to prevent assorted security risks
+log_output = FILE,TABLE
+#设定general_log和slowquery都保存在什么位置。默认是FILE,表示都保存到文件。如果是TABLE表示保存到mysql.general_log和mysql.slow_query_log表中。
+default-time-zone='+08:00'
+#开启自动提交
+autocommit = ON
+#timestmap数据类型如果没有声明not null，是允许null值得。可以直接设置改为null，而没有默认填充行为。
+explicit_defaults_for_timestamp = ON
+#启动服务后加载的插件
+plugin_load = "audit_log.so;validate_password.so;rpl_semi_sync_master=semisync_master.so;rpl_semi_sync_slave=semisync_slave.so"
+
+#*********************Performance Table**************#
+#Performance默认开启的话会占用大量的内存空间。所以强制关闭此功能。
+performance_schema = ON
+performance_schema_accounts_size = 100
+performance_schema_digests_size = 10000
+performance_schema_events_stages_history_long_size = 10000
+performance_schema_events_stages_history_size = 10
+performance_schema_events_statements_history_long_size = 10000
+performance_schema_events_statements_history_size = 10
+performance_schema_events_waits_history_long_size = 10000
+performance_schema_events_waits_history_size = 10
+performance_schema_hosts_size = 100
+performance_schema_max_cond_classes = 80
+performance_schema_max_cond_instances = 6900
+performance_schema_max_digest_length = 1024
+performance_schema_max_file_classes = 50
+performance_schema_max_file_handles = 32768
+performance_schema_max_file_instances = 7710
+performance_schema_max_mutex_classes = 200
+performance_schema_max_mutex_instances = 23000
+performance_schema_max_rwlock_classes = 40
+performance_schema_max_rwlock_instances = 10800
+performance_schema_max_socket_classes = 10
+performance_schema_max_socket_instances = 2020
+performance_schema_max_stage_classes = 150
+performance_schema_max_statement_classes = 179
+performance_schema_max_table_handles = 4000
+performance_schema_max_table_instances = 400
+performance_schema_max_thread_classes = 50
+performance_schema_max_thread_instances = 2100
+performance_schema_session_connect_attrs_size = 512
+performance_schema_setup_actors_size = 100
+performance_schema_setup_objects_size = 100
+performance_schema_users_size = 100
+
+
+#*********************线程池配置*********************#
+thread_handling = one-thread-per-connection
+#线程处理方法：
+#one-thread-per-connection
+#pool-of-threads
+# 参考：
+# https://www.percona.com/doc/percona-server/5.5/performance/threadpool.html
+# https://mariadb.com/kb/en/mariadb/thread-pool-in-mariadb/#optimizing-server-variables-on-unix
+#thread_pool_size = 4
+#线程组的个数，默认与处理器个数一致
+#thread_pool_idle_timeout = 60
+#闲置线程在多少秒后退出
+#thread_pool_max_threads = 100000
+#线程池内最大的线程数
+#thread_pool_oversubscribe =3
+#线程池超额数,默认为3
+#thread_pool_stall_limit = 500
+#一个正在运行的线程被认为停止运转500毫秒前，线程池会唤醒或创建新的线程。
+
+
+
+#*********************InnoDB存储引擎配置*********************#
+innodb_page_size = 16384
+innodb_lru_scan_depth = 4096
+innodb_lock_wait_timeout = 5
+innodb_flush_neighbors = 0
+innodb_purge_threads = 4
+innodb_large_prefix = ON
+innodb_strict_mode = ON
+innodb_sort_buffer_size = 67108864
+innodb_stats_persistent_sample_pages = 64
+
+innodb_thread_concurrency=0
+#InnoDB并发线程数
+# 参考:
+# http://dba.stackexchange.com/questions/81204/hyperthreading-mysql-innodb-thread-concurrency-performance
+innodb_thread_sleep_delay=1000
+#InnoDB等待线程释放的事件。
+
+
+
+#*********************InnoDB IO配置*********************#
+innodb_flush_method = O_DSYNC
+#InnoDB刷新模式
+# O_DIRECT
+# O_DSYNC
+# 参考：
+# http://dba.stackexchange.com/questions/23943/innodb-flush-method-o-direct-vs-o-dsync-performance-impact-on-ext3-with-lvm-disk
+innodb_read_io_threads = 4
+#InnoDB读预取请求IO的线程数,与CPU个数一致
+innodb_write_io_threads = 4
+#InnoDB从缓冲池写脏页的IO线程数,CPU个数的两倍
+innodb_io_capacity = 200
+#InnoDB每秒可以操作的磁盘IO数
+innodb_io_capacity_max = 2000
+#InnoDB每秒可以操作的最大IO数
+
+
+
+#*********************网络配置*********************#
+max_connections = 1000
+#允许的最大连接数
+interactive_timeout = 1800
+wait_timeout = 1800
+#等待连接超时
+lock_wait_timeout = 1800
+#锁等超时
+skip_name_resolve = ON
+#跳过主机名解析
+max_connect_errors = 1000000
+bind-address=0.0.0.0
+#绑定的地址
+port=3306
+#绑定的端口
+socket=/var/lib/mysql/mysql.sock
+#Socket文件的存储位置
+max_allowed_packet = 16777216
+#服务器端允许接受和发送的最大包大小
+net_buffer_length = 16384
+#服务器网络缓冲大小。net_buffer_length的值一定要小鱼max_allowed_packet的值。否则会报警。
+
+
+#*********************缓冲池配置*********************#
+innodb_buffer_pool_size = 6G
+#InnoDB缓冲池大小
+innodb_buffer_pool_instances = 16
+#缓冲池实例大小
+innodb_change_buffer_max_size = 25
+#InnoDB Change Buffer占用缓冲池的比例
+innodb_change_buffering = all
+#InnoDB Change Buffer可以缓冲的操作。
+innodb_buffer_pool_dump_at_shutdown = ON
+#关闭InnoDB前把缓冲池的内容同步到本地
+innodb_buffer_pool_filename = ib_buffer_pool
+#InnoDB缓冲池本地文件名
+innodb_buffer_pool_load_at_startup = ON
+#启动的时候把本地缓冲池文件的内容读入内存
+
+
+#*********************临时表配置*********************#
+default_tmp_storage_engine=InnoDB
+#临时表默认存储引擎使用INNODB
+max_tmp_tables = 32
+#临时表最多创建个数
+tmp_table_size = 128M
+#临时表最大占用的磁盘空间
+tmpdir = /Database/TmpData
+#临时表的存储目录
+
+
+#*********************数据文件配置*********************#
+datadir = /Database/Data
+innodb_data_home_dir = /Database/Data
+#数据文件目录
+innodb_data_file_path=ibdata1:1G:autoextend
+#共享表空间名字，和自动扩展大小
+innodb_file_per_table=ON
+#每个表一个表拥有独立的表空间
+innodb_file_format=Barracuda
+innodb_file_format_max=Barracuda
+#表空间的存储格式
+
+
+#*********************在线日志配置*********************#
+innodb_log_group_home_dir = /Database/OnLineLogs
+#在线日志的存储路径
+innodb_log_buffer_size = 16777216
+#在线日志缓冲区大小16MB
+innodb_log_files_in_group=8
+#同事有多少个日志组
+innodb_log_file_size=1G
+#每个在线日志的大小
+innodb_flush_log_at_trx_commit=1
+#事务提交必须刷新日志
+
+#*********************undo日志配置*********************#
+innodb_undo_logs = 128
+innodb_undo_tablespaces = 8
+
+
+#*********************归档日志配置*********************#
+log_bin = /Database/ArchLogs/archlog
+#归档日志的保存路径及名称
+max_binlog_size=1G
+#最大归档日志大小
+sync_binlog=1
+#同步归档日志到磁盘
+binlog_format=ROW
+#归档日志存储格式，统一使用ROW
+expire-logs-days = 30
+#归档日志的过期日期，过期的归档日志将被自动移除
+log-slave-updates = True
+#从机必须记录日志。
+gtid-mode=ON
+#开启GTID日志
+enforce-gtid-consistency=True
+#强制使用事务语句
+binlog-rows-query-log-events = ON
+#在归档日志中记录时间信息，不用再mysqlbinlog -vvv查看。
+log-bin-trust-function-creators = ON
+#允许到开启了归档日志的主机上创建用户自定义函数udf
+
+
+#*********************慢查询日志配置*********************#
+slow_query_log = ON
+#慢查询日志开启开关
+slow_query_log_file = /Database/SlowLogs/slowquery
+#慢查询保存的位置及名称
+long_query_time = 2
+#执行时间大于多少秒就记录到慢查询日志中
+log-slow-verbosity=query_plan,profiling,innodb
+#慢查询日志附加选项
+#microtime: Log queries with microsecond precision.
+#query_plan: Log information about the query’s execution plan.
+#innodb: Log InnoDB statistics.
+#minimal: Equivalent to enabling just microtime.
+#standard: Equivalent to enabling microtime,innodb.
+#full: Equivalent to all other values OR’ed together without the profiling and profiling_use_getrusage options.
+#profiling: Enables profiling of all queries in all connections.
+#profiling_use_getrusage: Enables usage of the getrusage function.
+max_slowlog_files = 100
+max_slowlog_size = 10M
+#限定慢查询日志大小
+log_slow_admin_statements = 1
+log_slow_slave_statements = 1
+#管理语句和slave语句也记录到慢查询
+log_queries_not_using_indexes = 1
+#查询未使用索引的查询
+log_throttle_queries_not_using_indexes = 10
+#用来表示每分钟允许记录到slow log的且未使用索引的SQL语句次数
+min_examined_row_limit = 100
+#记录查找了多达100次而引起的慢查询
+
+
+#*********************操作日志配置*********************#
+general_log=OFF
+#操作日志开启开关
+general_log_file = /Database/TmpData/general.log
+#操作日志保存的位置及名称
+
+#*********************死锁日志配置**********************#
+deadlock_log_path = /Database/TmpData
+innodb_print_all_deadlocks = ON
+
+
+#*********************审计日志配置**********************#
+audit_log_path = /Database/AuditLogs
+audit_log_rotate_on_size = 10M
+audit_log_rotations = 100
+audit_log_format = MONGO
+audit_log_logging = ON
+audit_log_file = "audit.log"
+
+
+#*********************RELAY日志配置*********************#
+relay_log=/var/lib/mysql/Relay-logs
+#从机relay日志的保存位置及名称
+master_info_repository= TABLE
+relay_log_info_repository= TABLE
+#relay日志信息及主节点信息保存方式
+sync-master-info=1
+#同步保存主信息
+binlog-checksum=CRC32
+master-verify-checksum=1
+#report-host=semi-node1
+relay_log_recovery = ON
+
+
+#*********************同步配置*********************#
+rpl_semi_sync_master_enabled=1
+rpl_semi_sync_master_timeout=3000
+rpl_semi_sync_slave_enabled=1
+#binlog-do-db=testdb
+#binlog-ignore-db=basedb
+slave_skip_errors = ddl_exist_errors
+slave-rows-search-algorithms = 'INDEX_SCAN,HASH_SCAN'
+
+
+
+#*********************PXC配置*********************#
+#wsrep_provider=/usr/lib64/libgalera_smm.so
+#wsrep_cluster_address="gcomm://pxc01,pxc02,pxc03"
+#wsrep_sst_auth="sstuser:s3cret"
+#wsrep_provider_options="gcache.size=4G"
+#wsrep_cluster_name=ppxc
+#wsrep_sst_method=xtrabackup-v2
+#wsrep_node_address=pxc01
+#wsrep_slave_threads=8
+#innodb_autoinc_lock_mode=2
+
+
+#*********************事件调度配置*********************#
+event_scheduler=ON
+#事件调度器开关
+
+
+
+#*********************其他内存配置*********************#
+join_buffer_size = 256K
+#每个线程中每个查询未使用索引的联合查询需要分配的内存大小。
+# 参考：
+# https://www.percona.com/blog/2010/07/05/how-is-join_buffer_size-allocated/
+# show status like '%select_full_join%' 可以看到未使用索引的联合查询的个数
+sort_buffer_size = 256K
+#每个会话每个排序没有用到索引时的需要的缓冲区大小
+# 参考：
+# https://www.percona.com/blog/2007/08/18/how-fast-can-you-sort-data-with-mysql/
+read_rnd_buffer_size = 2M
+#如果在很多的查询中使用了ORDER BY，缓冲排序操作中已排序的行。
+
+
+#*********************SSL安全连接配置*********************#
+#sha256_password_private_key_path='/var/lib/mysql/mykey.pem'
+#sha256_password_public_key_path='/var/lib/mysql/mykey.pub'
+#
+
+#**************密码增强******************* #
+validate_password_policy=STRONG
+validate-password=FORCE_PLUS_PERMANENT
+
+
+[mysqld_safe]
+log-error=/var/log/mysqld.log
+#运行日志位置及名称
+pid-file=/var/run/mysqld/mysqld.pid
+#运行PID文件的位置及名称
+
+
+[client]
+port=3306
+#端口
+socket=/var/lib/mysql/mysql.sock
+#Socket文件的位置及名称
+
+
+[mysql]
+port=3306
+#端口
+socket=/var/lib/mysql/mysql.sock
+#Socket文件的位置及名称
+auto-rehash
+#no-auto-rehash
+#命令行自动补全功能
+pager="less -i -n -S"
+tee="/Database/TmpData/query.log"
+#命令行输出的导出位置及名称
+prompt=\\u@\\h:\\p[\\d]\\_[\\r:\\m:\\s\\_\\P]>\\_
+#命令行提示符
