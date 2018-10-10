@@ -1,4 +1,7 @@
-package com.example.jsontool;
+package com.example.jsontool.gson;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -9,10 +12,14 @@ import java.util.Date;
  **/
 public class User implements Serializable {
 
+    @Expose
     private int id;
 
+    @Expose
     private String name = "";
 
+    @Expose
+    @SerializedName("userGender")
     private String gender = "";
 
     private String phoneNumber = "";
