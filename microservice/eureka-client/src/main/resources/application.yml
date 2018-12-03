@@ -2,7 +2,7 @@
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8080/eureka
+      defaultZone: http://localhost:8080/eureka,http://localhost:8083/eureka
   #配置点击跳转地址
   instance:
     hostname: eureka.client
