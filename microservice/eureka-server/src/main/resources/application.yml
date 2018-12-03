@@ -1,0 +1,12 @@
+# eureka-server端同时为client端，配置作为客户端注册的服务端地址
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8080/eureka
+    #是否注册自身到eureka服务器
+    register-with-eureka: false
+
+## 服务名称
+spring:
+  application:
+    name: eureka-server
