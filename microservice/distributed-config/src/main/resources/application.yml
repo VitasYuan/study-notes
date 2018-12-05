@@ -7,7 +7,7 @@ spring:
         git:
           uri: https://github.com/VitasYuan/microservice-config.git
           username: 515342182@qq.com
-          password: 5602577111ywp
+          password: xxxx
           basedir: /Users/yuanweipeng/Documents/workspaces/study-notes/study-notes/config
 
 eureka:
