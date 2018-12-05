@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -20,8 +21,8 @@ public class OrderMaster {
      * 自增主键id
      */
     @Id
-    @GeneratedValue
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id = 0;
 
     /**
      * 订单id

@@ -18,4 +18,12 @@ public interface ProductDao extends JpaRepository<Product, Long> {
      * @return 商品列表
      */
     List<Product> findProductsByState(Integer state);
+
+    /**
+     * 根据产品id查询产品列表
+     *
+     * @param productIdList 产品id列表
+     * @return 产品列表
+     */
+    List<Product> findProductsByIdIn(List<Long> productIdList);
 }
