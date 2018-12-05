@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/VitasYuan/microservice-config.git
+          username: 515342182@qq.com
+          password: 5602577111ywp
+          basedir: /Users/yuanweipeng/Documents/workspaces/study-notes/study-notes/config
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8080/eureka,http://localhost:8083/eureka
+
+server:
+  port: 8088
