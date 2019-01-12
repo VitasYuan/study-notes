@@ -6,14 +6,25 @@ spring:
       server:
         git:
           uri: https://github.com/VitasYuan/microservice-config.git
-          username: 515342182@qq.com
-          password: xxxx
+          username:
+          password:
           basedir: /Users/yuanweipeng/Documents/workspaces/study-notes/study-notes/config
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: admin
+    password: admin
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8080/eureka,http://localhost:8083/eureka
+      defaultZone: http://localhost:8080/eureka
 
 server:
   port: 8088
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
