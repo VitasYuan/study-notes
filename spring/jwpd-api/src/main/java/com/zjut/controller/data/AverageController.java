@@ -5,6 +5,7 @@ import com.zjut.service.HourAverageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -28,7 +29,8 @@ public class AverageController {
     }
 
     @GetMapping(value = "/test-jsp")
-    public String page(){
-        return "/index.jsp";
+    public String page(Model model){
+        model.addAttribute("message", "message");
+        return "index";
     }
 }
