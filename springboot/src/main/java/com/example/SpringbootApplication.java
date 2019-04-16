@@ -11,8 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
  * EnableScheduling //开启定时任务功能
  */
 @SpringBootApplication
-@ComponentScan(basePackages = "com.example")
-@ServletComponentScan(basePackages = {"com.example.web.config"})
+@ServletComponentScan(basePackages = {"com.example.web.config","com.example.web.servlet","com.example.web.listener"})
 public class SpringbootApplication {
 
 	public static void main(String[] args) {
