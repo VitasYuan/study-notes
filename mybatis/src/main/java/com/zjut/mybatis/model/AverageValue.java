@@ -22,6 +22,14 @@ public class AverageValue {
      */
     private Date createdTime;
 
+    public AverageValue(int averageVaule, Date createdTime) {
+        this.averageVaule = averageVaule;
+        this.createdTime = createdTime;
+    }
+
+    public AverageValue() {
+    }
+
     public int getId() {
         return id;
     }

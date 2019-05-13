@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zjut.mybatis.mapper.HourAverageValueMapper">
 
+    <!--<cache eviction="LRU" flushInterval="1000000" size="1024" type="com.zjut.mybatis.cache.MyCache"/>-->
+
     <resultMap id="AverageValueResultMap" type="com.zjut.mybatis.model.AverageValue">
         <id property="averageVaule" column="avg_value"></id>
         <id property="createdTime" column="created_time"></id>
