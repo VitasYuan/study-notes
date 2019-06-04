@@ -53,14 +53,8 @@ public class SignChecker {
 
     static {
         ANDROID_APPKEY_LIST = new ArrayList<>();
-        ANDROID_APPKEY_LIST.add("GLAndroid");
-        ANDROID_APPKEY_LIST.add("GLAndroidTV");
-        ANDROID_APPKEY_LIST.add("GLRecAndroid");
         IOS_APPKEY_LIST = new ArrayList<>();
-        IOS_APPKEY_LIST.add("GLIos");
         OBS_APPKEY_LIST = new ArrayList<>();
-        OBS_APPKEY_LIST.add("GLObs");
-        OBS_APPKEY_LIST.add("GLRecObs");
         try {
             File file = new File(CONFIG_PATH);
             if (file.exists()) {
