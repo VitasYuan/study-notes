@@ -17,6 +17,7 @@
         <module>design-pattern</module>
         <module>json-tool</module>
         <module>mybatis</module>
+        <module>common-utils</module>
     </modules>
 
     <parent>
