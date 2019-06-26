@@ -28,4 +28,35 @@ public class ScheduledTaskTest {
         logger.info(Thread.currentThread().getName());
         logger.info("Concurrent time is:" + format.format(new Date()));
     }
+
+
+    @Scheduled(cron = "0 23 11 * * * ")
+    public void test1() throws Exception{
+        logger.info("test1 start at :" + System.currentTimeMillis());
+        logger.info(Thread.currentThread().getName());
+        logger.info("Concurrent time is:" + format.format(new Date()));
+        Thread.sleep(1000 * 10);
+        logger.info("test1 finished at :" + System.currentTimeMillis());
+
+    }
+
+    @Scheduled(cron = "0 23 11 * * * ")
+    public void test2() throws Exception{
+        logger.info("test2 start at :" + System.currentTimeMillis());
+        logger.info(Thread.currentThread().getName());
+        logger.info("Concurrent time is:" + format.format(new Date()));
+        Thread.sleep(1000 * 10);
+        logger.info("test2 finished at :" + System.currentTimeMillis());
+
+    }
+
+    @Scheduled(cron = "0 23 11 * * * ")
+    public void test3() throws Exception{
+        logger.info("test3 start at :" + System.currentTimeMillis());
+        logger.info(Thread.currentThread().getName());
+        logger.info("Concurrent time is:" + format.format(new Date()));
+        Thread.sleep(1000 * 10);
+        logger.info("test3 finished at :" + System.currentTimeMillis());
+
+    }
 }

@@ -21,9 +21,10 @@ public class DictionaryTransactionService {
     @Transactional(value = "demoServerTransaction", rollbackFor = Exception.class)
     public void insertOrUpdate(){
         //使用事务的时候如何保证缓存一致性
-        dictionaryDao.insert(new Dictionary("test","testvalue",1,"test"));
+        int id = dictionaryDao.insert(new Dictionary("test","testvalue",1,"test"));
         dictionaryDao.list();
         System.out.println("git test");
+        System.out.printf(id + "");
     }
 
 

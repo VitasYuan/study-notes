@@ -21,8 +21,8 @@ public class DictionaryServiceImpl implements DictionaryService {
     @Autowired
     private DictionaryDao dictionaryDao;
 
-    @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+//    @Autowired
+//    private RedisTemplate<String, Object> redisTemplate;
 
     @Override
     public List<Dictionary> list() {
@@ -42,20 +42,21 @@ public class DictionaryServiceImpl implements DictionaryService {
     @Override
     public List<Dictionary> listChildrenByKey(String key) {
 
-        String cacheKey = getCacheKey(key);
-        List<Dictionary> result = (List<Dictionary>) redisTemplate.opsForValue().get(cacheKey);
-
-        if (result == null) {
-            result = dictionaryDao.listChildrenByKey(key);
-            redisTemplate.opsForValue().set(cacheKey, result);
-        }
-        return result;
+//        String cacheKey = getCacheKey(key);
+////        List<Dictionary> result = (List<Dictionary>) redisTemplate.opsForValue().get(cacheKey);
+//
+//        if (result == null) {
+//            result = dictionaryDao.listChildrenByKey(key);
+////            redisTemplate.opsForValue().set(cacheKey, result);
+//        }
+//        return result;
+        return null;
     }
 
     @Override
-    public void insert(Dictionary dictionary) {
-        dictionaryDao.insert(dictionary);
-        redisTemplate.delete(LIST_KEY);
+    public int insert(Dictionary dictionary) {
+        return dictionaryDao.insert(dictionary);
+//        redisTemplate.delete(LIST_KEY);
         //todo 删除listChildrenByKey的缓存
     }
 

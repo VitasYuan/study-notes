@@ -25,7 +25,7 @@
         delete from dictionary where id = #{id}
     </delete>
 
-    <insert id="insert" parameterType="com.example.business.dictionary.Dictionary">
+    <insert id="insert" parameterType="com.example.business.dictionary.Dictionary" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO `dictionary`(`dict_key`,`dict_value`,`parent_id`,`description`)
         VALUES(#{dictKey}, #{dictValue}, #{parentId}, #{description})
     </insert>

@@ -33,7 +33,6 @@ public class DictionaryDaoImpl implements DictionaryDao {
             result = dictionaryDao.list();
             redisTemplate.opsForValue().set(LIST_KEY, result);
         }
-//        int a = 1/0;
         return result;
     }
 
@@ -51,10 +50,11 @@ public class DictionaryDaoImpl implements DictionaryDao {
     }
 
     @Override
-    public void insert(Dictionary dictionary) {
+    public int insert(Dictionary dictionary) {
         dictionaryDao.insert(dictionary);
         redisTemplate.delete(LIST_KEY);
         //todo 删除listChildrenByKey的缓存
+        return dictionary.getId();
     }
 
     @Override

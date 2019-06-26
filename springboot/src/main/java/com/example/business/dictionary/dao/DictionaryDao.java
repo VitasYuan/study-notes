@@ -34,7 +34,7 @@ public interface DictionaryDao {
      *
      * @param dictionary
      */
-    void insert(Dictionary dictionary);
+    int insert(Dictionary dictionary);
 
     /**
      * @return

@@ -30,6 +30,6 @@ public interface DictionaryService {
      *
      * @param dictionary
      */
-    void insert(Dictionary dictionary);
+    int insert(Dictionary dictionary);
 
 }
