@@ -21,7 +21,7 @@ import java.util.concurrent.Future;
  *
  * @author yuanweipeng
  **/
-@Component
+@Component(value = "test1,test2")
 public class AsyncTaskService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger("ASYNC_TASK_LOG");
