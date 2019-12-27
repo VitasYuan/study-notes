@@ -18,6 +18,7 @@
         <module>json-tool</module>
         <module>mybatis</module>
         <module>common-utils</module>
+        <module>itext5-demo</module>
         <module>validator</module>
     </modules>
 

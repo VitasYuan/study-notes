@@ -17,6 +17,7 @@ public class ValidatorApplicationTests {
 	@Test
 	public void contextLoads() {
 		validator.validator();
+//		System.out.println("袁维鹏a".toUpperCase());
 	}
 
 }
