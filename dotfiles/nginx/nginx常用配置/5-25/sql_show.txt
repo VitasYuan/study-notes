@@ -1,0 +1,9 @@
+#1、安装环境
+yum install mariadb-server mariadb
+yum install php php-fpm php-mysql
+
+#2、建立表格、插入测试数据
+
+create table users(id int(11),username varchar(64), password varchar(64), email varchar(64));
+
+insert into users (id,username,password,email) values(1,'jeson',md5('123'),'jeson@imoocc.com');
